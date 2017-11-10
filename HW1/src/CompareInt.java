@@ -39,5 +39,9 @@ public class CompareInt implements Comparable<CompareInt> {
 		}
 		return total / 2; //each comparison is counted twice- once by each int in the comparison
 	}
+	
+	public String toString() {
+		return val + " ";
+	}
 
 }

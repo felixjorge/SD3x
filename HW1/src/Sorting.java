@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class Sorting {
 	
@@ -21,14 +22,15 @@ public class Sorting {
 		sort(arr, aux, low, mid);
 		sort(arr, aux, mid + 1, high);
 		merge(arr, aux, low, mid, high);
+		Arrays.toString(arr);
 	}
 	
 	public static void merge(CompareInt[] arr, CompareInt[] aux, int low, int mid, int high) {
-		for (int i = 0; i <= high; i++) {
+		for (int i = low; i <= high; i++) {
 			aux[i] = arr[i];
 		}
 		
-		int i = 0; int j = mid + 1; int k = 0;
+		int i = low; int j = mid + 1; int k = low;
 		
 		while (i <= mid && j <= high) {
 			int comp = aux[i].compareTo(aux[j]);
@@ -58,6 +60,17 @@ public class Sorting {
 	public static CompareInt quickSelect(int k, CompareInt[] arr) {
 		//TODO
 		return null;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println("hi");
+		CompareInt[] arr = MyTests.convert(new int[]{1, 3, 5, 7, 2, 4, 6, 8});
+		CompareInt[] aux = new CompareInt[arr.length];
+		mergeSort(arr);
+		for (CompareInt i : arr) {
+			System.out.println(i);
+		}
+//		Arrays.toString(arr);
 	}
 
 }
