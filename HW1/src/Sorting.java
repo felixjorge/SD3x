@@ -25,16 +25,15 @@ public class Sorting {
 		Arrays.toString(arr);
 	}
 	
-	public static void merge(CompareInt[] arr, CompareInt[] aux, int low, int mid, int high) {
-		for (int i = low; i <= high; i++) {
+	public static void merge(CompareInt[] arr, CompareInt[] aux, int lo, int mid, int hi) {
+		for (int i = lo; i <= hi; i++) {
 			aux[i] = arr[i];
 		}
 		
-		int i = low; int j = mid + 1; int k = low;
+		int i = lo; int j = mid + 1; int k = lo;
 		
-		while (i <= mid && j <= high) {
-			int comp = aux[i].compareTo(aux[j]);
-			if (comp < 0) {
+		while (i <= mid && j <= hi) {
+			if (less(aux[i], aux[j])) {
 				arr[k++] = aux[i++];
 			} else {
 				arr[k++] = aux[j++];
@@ -44,12 +43,69 @@ public class Sorting {
 		while (i <= mid) {
 			arr[k++] = aux[i++];
 		}
-		while (j <= high) {
+		while (j <= hi) {
 			arr[k++] = aux[j++];
 		}
 	}
 	
+	// is x < y ?
+	public static boolean less(CompareInt x, CompareInt y) {
+		return x.compareTo(y) < 0;
+	}
 	
+	// swap arr[i] and arr[j]
+	public static void swap(CompareInt[] arr, int i, int j) {
+		CompareInt tmp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = tmp;
+	}
+	
+	public static int partition(CompareInt[] arr, int lo, int hi) {
+		System.out.println("lo : " + lo + " hi: " + hi);
+		CompareInt pivot = arr[lo];
+		int i = lo; int j = hi+1;
+		while (true) {
+			printArr(arr);
+			while (less(arr[++i], pivot)) // find next i that a[i] > pivot
+				if (i == hi) break;
+			
+			while (less(pivot, arr[--j])) // find next j that a[j] < pivot
+				if (j == lo) break;
+			
+			if (i >= j) break;
+			System.out.println("Swapping a[" + i + "] = " + arr[i] + "a[" + j + "] = " + arr[j]);
+			swap(arr, i, j);
+		}
+		
+		swap(arr, lo, j);
+		System.out.println("Final: ");
+		printArr(arr);
+		System.out.println(arr[j]);
+		return j;
+	}
+	
+	public static void printArr(CompareInt[] arr) {
+		for (CompareInt i : arr) {
+			System.out.print(i);
+		}
+		System.out.println();
+	}
+	
+	public static CompareInt quick(CompareInt[] arr, int k, int lo, int hi) {
+		if (lo == hi) return arr[lo];
+		
+		
+		int pivot = partition(arr, lo, hi);
+		System.out.println("k = " + k + " pivot = " + pivot);
+		if (pivot == k) {
+			return arr[k];
+		}
+		
+		if (pivot < k)
+			return quick(arr, k, pivot + 1, hi);
+		else 
+			return quick(arr, k, lo, pivot - 1);
+	}
 	
 	/**
 	 * Implement the quickSelect
@@ -59,17 +115,17 @@ public class Sorting {
 	 */
 	public static CompareInt quickSelect(int k, CompareInt[] arr) {
 		//TODO
-		return null;
+		return quick(arr, k-1, 0, arr.length - 1);
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("hi");
-		CompareInt[] arr = MyTests.convert(new int[]{1, 3, 5, 7, 2, 4, 6, 8});
-		CompareInt[] aux = new CompareInt[arr.length];
-		mergeSort(arr);
-		for (CompareInt i : arr) {
-			System.out.println(i);
-		}
+		CompareInt[] arr = MyTests.convert(new int[]{4, 3, 5, 10, 2, 0, 9, 8});
+		
+//		System.out.println(arr[partition(arr, 0, arr.length - 1)]);
+		
+		System.out.println(quickSelect(7, arr));
+		printArr(arr);
+		
 //		Arrays.toString(arr);
 	}
 

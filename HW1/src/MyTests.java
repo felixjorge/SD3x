@@ -37,20 +37,20 @@ public class MyTests {
 		assertEquals(3, KthSmallest.mergeSortImpl(2, arr));
 	}
 	
-	@Test
-	public void KthSmallestTestSampleMergeTest2() {
-		CompareInt[] arr = convert(new int[]{4, 1, 3, 9, 7, 6, 5, 2, 11, 20, 99, 72});
-		assertEquals(5, KthSmallest.mergeSortImpl(5, arr));
-	}
-	
-	@Test
-	public void TestMerge() {
-		CompareInt[] arr = convert(new int[]{1, 3, 5, 7, 2, 4, 6, 8});
-		CompareInt[] aux = new CompareInt[arr.length];
-		Sorting.merge(arr, aux, 0, 3, 7);
-		Arrays.toString(arr);
-		assertEquals(2, arr[1].val);
-	}
+//	@Test
+//	public void KthSmallestTestSampleMergeTest2() {
+//		CompareInt[] arr = convert(new int[]{4, 1, 3, 9, 7, 6, 5, 2, 11, 20, 99, 72});
+//		assertEquals(5, KthSmallest.mergeSortImpl(5, arr));
+//	}
+//	
+//	@Test
+//	public void TestMerge() {
+//		CompareInt[] arr = convert(new int[]{1, 3, 5, 7, 2, 4, 6, 8});
+//		CompareInt[] aux = new CompareInt[arr.length];
+//		Sorting.merge(arr, aux, 0, 3, 7);
+//		Arrays.toString(arr);
+//		assertEquals(2, arr[1].val);
+//	}
 	
 	@Test
 	public void KthSmallestTestSampleQuickSelectTest() {
