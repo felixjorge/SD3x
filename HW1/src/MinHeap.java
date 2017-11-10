@@ -27,18 +27,17 @@ public class MinHeap {
 	 * @param val the value to be added to the heap
 	 */
 	public void add(CompareInt val) {
-		System.out.println("adding " + val);
-		heap[size + 1] = val; 
+		if (size == heap.length - 1) throw new IllegalArgumentException();
+//		System.out.println("adding " + val);
 		size++;
+		heap[size] = val;
+		swim(size);
 		return;
 	}
 	
 	public void sink(int k) {
 		while (2 * k <= size) {
-//			System.out.println("k = " + heap[k] + " -> " + heap[2*k] + " " + heap[2*k+1]);
 			int min = Sorting.less(heap[2*k], heap[2*k + 1]) ? 2*k : 2*k + 1;
-//			System.out.println(heap[k] + " " + heap[min]);
-//			System.out.println(Sorting.less(heap[k], heap[min]));
 			if (Sorting.less(heap[k], heap[min]))
 				break;
 			
@@ -48,7 +47,11 @@ public class MinHeap {
 	}
 	
 	public void swim(int k) {
-		
+		System.out.println("Swim " + k);
+		while (k > 1 && Sorting.less(heap[k],heap[k / 2])) {
+			Sorting.swap(heap, k, k / 2);
+			k /= 2;
+		}
 	}
 	
 	

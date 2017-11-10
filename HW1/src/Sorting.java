@@ -120,16 +120,20 @@ public class Sorting {
 	
 	public static void main(String[] args) {
 		CompareInt[] arr = MyTests.convert(new int[]{4, 3, 5, 10, 2, 0, 9, 8});
-		MinHeap h = new MinHeap(arr.length);
-		for (int i = 0; i < arr.length; i++) {
-			h.add(new CompareInt(i + 1));
-		}
+//		MinHeap h = new MinHeap(arr.length);
+//		for (int i = 0; i < arr.length; i++) {
+//			h.add(arr[i]);
+//			System.out.println(h);
+//		}
+		MinHeap h = new MinHeap(1);
+		h.add(new CompareInt(100));
+//		h.add(new CompareInt(200));
 		
-		System.out.println(h);
 		for (int i = 0; i < arr.length-1; i++) {
 			System.out.println("extracting min " + h.extractMin());
+			System.out.println(h);
 		}
-		System.out.println(h);
+
 		
 //		System.out.println(arr[partition(arr, 0, arr.length - 1)]);
 		
