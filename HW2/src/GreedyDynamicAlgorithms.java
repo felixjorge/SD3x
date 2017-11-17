@@ -25,22 +25,65 @@ public class GreedyDynamicAlgorithms {
 	 * @return
 	 */
 	public static List<Direction> optimalGridPath(int[][] grid) {
-		//TODO
-		return null;
+		int m = grid.length; int n = grid[0].length;
+		
+		int[][] min = new int[m][n];
+		int minPath = minPath(grid, 0, 0, min);
+		System.out.println("min cost " + minPath);
+		printArray(min);
+		
+		List<Direction> list = new ArrayList<>();
+		int i = 0; int j = 0;
+		while (true) {
+			if (i == m-1 && j == n-1) break;
+			if (!isValidSquare(grid, i, j+1) || min[i+1][j] < min[i][j+1]) {
+				list.add(Direction.DOWN);
+				i++;
+			} else {
+				list.add(Direction.RIGHT);
+				j++;
+			}
+		}
+		
+		return list;
+	}
+	
+	public static void printArray(int[][] a) {
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < a[i].length; j++) {
+				System.out.print(a[i][j] + "\t");
+			}
+			System.out.println();
+		}
 	}
 	
 	public static boolean isValidSquare(int[][] grid, int row, int col) {
+//		System.out.println("call isvalid on " + row +  " " + col);
+//		System.out.println("grid size " + grid.length + "x" + grid[0].length);
 		return row < grid.length && col < grid[0].length;
 	}
 	
 	public static int minPath(int[][] grid, int row, int col, int[][] min) {
-		if (!isValidSquare(grid, row, col)) // invalid square
+		System.out.println("\tcall minPath on " + row + " " + col);
+		if (!isValidSquare(grid, row, col)) { // invalid square
+//			System.out.println("invalid " + row + " " + col);
 			return Integer.MAX_VALUE;
+		}
+		
 		if (row == grid.length - 1 && col == grid[0].length - 1) { // at bottom right
+			min[row][col] = grid[row][col];
 			return grid[row][col];
 		} 
 		
 		if (min[row][col] == 0) {
+//			int right = minPath(grid, row, col+1, min);
+//			int down = minPath(grid, row+1, col, min);
+//			System.out.println("right " + right + " down " + down);
+//			if (right < down) {
+//				min[row][col] = grid[row][col] + right;
+//			} else {
+//				min[row][col] = grid[row][col] + down;
+//			}
 			min[row][col] = grid[row][col] + Math.min(minPath(grid, row, col+1, min), minPath(grid, row+1, col, min));
 		}
 		

@@ -1,3 +1,5 @@
+import java.util.List;
+
 
 public class Main {
 	public static void main(String[] args) {
@@ -15,9 +17,11 @@ public class Main {
 			{5, 6, 3}
 		};
 		
-		int[][] min = new int[4][4];
-		int minPath = GreedyDynamicAlgorithms.minPath(grid, 0, 0, min);
-		System.out.println(minPath);
+		int[][] min = new int[4][3];
+		List<GreedyDynamicAlgorithms.Direction> list = GreedyDynamicAlgorithms.optimalGridPath(grid);
+		for (GreedyDynamicAlgorithms.Direction dir : list) {
+			System.out.println(dir);
+		}
 		
 	}
 	
