@@ -34,14 +34,47 @@ public class Huffman {
 		 * Remember to store the final tree as a global variable, as you will need it
 		 * to decode your encrypted string
 		 */
+		
+		// add all nodes to the priority queue
+		for (Character c : freqMap.keySet()) {
+			huffman.add(new Node(c, freqMap.get(c), null, null));
+		}
+		
+		// continually merge the two lowest-frequency nodes until only one tree remains in the queue
+		while (huffman.size() > 1) {
+			Node n1 = huffman.poll();
+			Node n2 = huffman.poll();
+			huffman.add(new Node(null, n1.freq + n2.freq, n1, n2));	
+		}
+		
+		huffmanTree = huffman.poll();
+
+		map(huffmanTree, "");
+		
+		for (Character c : mapping.keySet()) {
+			System.out.println(c + " " + mapping.get(c));
+		}
+		
+	}
+	
+	public void map(Node n, String code) {
+		if (n.isLeaf()) {
+			mapping.put(n.letter, code);
+		} else {
+			map(n.left, code + "0");
+			map(n.right, code + "1");
+		}
 	}
 	
 	/**
 	 * Use the global mapping to convert your input string into a binary string
 	 */
 	public String encode() {
-		//TODO
-		return null;
+		String result = "";
+		for (char c : input.toCharArray()) {
+			result += mapping.get(c);
+		}
+		return result;
 	}
 	
 	/**
@@ -86,6 +119,9 @@ public class Huffman {
 			} else {
 				freqMap.put(c, 1);
 			}
+		}
+		for (Character c : freqMap.keySet()) {
+			System.out.println(c + " " + freqMap.get(c));
 		}
 		return freqMap;
 	}
