@@ -36,7 +36,7 @@ public class GreedyDynamicAlgorithms {
 		int i = 0; int j = 0;
 		while (true) {
 			if (i == m-1 && j == n-1) break;
-			if (!isValidSquare(grid, i, j+1) || min[i+1][j] < min[i][j+1]) {
+			if (!isValidSquare(grid, i, j+1) || (isValidSquare(grid, i+1, j) && min[i+1][j] < min[i][j+1])) {
 				list.add(Direction.DOWN);
 				i++;
 			} else {
@@ -66,7 +66,6 @@ public class GreedyDynamicAlgorithms {
 	public static int minPath(int[][] grid, int row, int col, int[][] min) {
 		System.out.println("\tcall minPath on " + row + " " + col);
 		if (!isValidSquare(grid, row, col)) { // invalid square
-//			System.out.println("invalid " + row + " " + col);
 			return Integer.MAX_VALUE;
 		}
 		
@@ -76,14 +75,6 @@ public class GreedyDynamicAlgorithms {
 		} 
 		
 		if (min[row][col] == 0) {
-//			int right = minPath(grid, row, col+1, min);
-//			int down = minPath(grid, row+1, col, min);
-//			System.out.println("right " + right + " down " + down);
-//			if (right < down) {
-//				min[row][col] = grid[row][col] + right;
-//			} else {
-//				min[row][col] = grid[row][col] + down;
-//			}
 			min[row][col] = grid[row][col] + Math.min(minPath(grid, row, col+1, min), minPath(grid, row+1, col, min));
 		}
 		

@@ -12,12 +12,11 @@ public class Main {
 		
 		int[][] grid = new int[][]{
 			{5, 1, 1},
-			{2, 4, 7},
-			{2, 4, 5},
-			{5, 6, 3}
+			{20, 4, 7},
+			{30, 6, 3}
 		};
 		
-		int[][] min = new int[4][3];
+		int[][] min = new int[3][3];
 		List<GreedyDynamicAlgorithms.Direction> list = GreedyDynamicAlgorithms.optimalGridPath(grid);
 		for (GreedyDynamicAlgorithms.Direction dir : list) {
 			System.out.println(dir);
