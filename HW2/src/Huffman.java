@@ -87,8 +87,22 @@ public class Huffman {
 	 * @return the original string (should be the same as "input")
 	 */
 	public String decode(String encoding) {
-		//TODO
-		return null;
+		String result = "";
+		int i = 0;
+		while (i < encoding.length()) {
+			Node n = huffmanTree;
+			while (!n.isLeaf()) {
+				if (encoding.charAt(i) == '0') {
+					n = n.left;
+				} else {
+					n = n.right;
+				}
+				i++;
+			}
+			result += n.letter;
+			
+		}
+		return result;
 	}
 	
 	/**
