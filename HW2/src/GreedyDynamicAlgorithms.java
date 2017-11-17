@@ -29,6 +29,24 @@ public class GreedyDynamicAlgorithms {
 		return null;
 	}
 	
+	public static boolean isValidSquare(int[][] grid, int row, int col) {
+		return row < grid.length && col < grid[0].length;
+	}
+	
+	public static int minPath(int[][] grid, int row, int col, int[][] min) {
+		if (!isValidSquare(grid, row, col)) // invalid square
+			return Integer.MAX_VALUE;
+		if (row == grid.length - 1 && col == grid[0].length - 1) { // at bottom right
+			return grid[row][col];
+		} 
+		
+		if (min[row][col] == 0) {
+			min[row][col] = grid[row][col] + Math.min(minPath(grid, row, col+1, min), minPath(grid, row+1, col, min));
+		}
+		
+		return min[row][col];		
+	}
+	
 	/**
 	 * A simple Direction enum
 	 * directions can be either DOWN or RIGHT

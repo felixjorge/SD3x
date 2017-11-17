@@ -87,6 +87,7 @@ public class Huffman {
 				}
 				i++;
 			}
+			// n is now a leaf (contains a character)
 			result += n.letter;
 			
 		}
