@@ -24,16 +24,6 @@ public class Huffman {
 		//as we need to continually find and merge the nodes with smallest frequency
 		PriorityQueue<Node> huffman = new PriorityQueue<>();
 		
-		/*
-		 * TODO:
-		 * 1) add all nodes to the priority queue
-		 * 2) continually merge the two lowest-frequency nodes until only one tree remains in the queue
-		 * 3) Use this tree to create a mapping from characters (the leaves)
-		 *    to their binary strings (the path along the tree to that leaf)
-		 *    
-		 * Remember to store the final tree as a global variable, as you will need it
-		 * to decode your encrypted string
-		 */
 		
 		// add all nodes to the priority queue
 		for (Character c : freqMap.keySet()) {
@@ -45,24 +35,22 @@ public class Huffman {
 			Node n1 = huffman.poll();
 			Node n2 = huffman.poll();
 			huffman.add(new Node(null, n1.freq + n2.freq, n1, n2));	
-		}
+		}		
 		
+		// Use this tree to create a mapping from characters (the leaves)
+		//   to their binary strings (the path along the tree to that leaf)
 		huffmanTree = huffman.poll();
-
-		map(huffmanTree, "");
-		
-		for (Character c : mapping.keySet()) {
-			System.out.println(c + " " + mapping.get(c));
-		}
+		buildCode(huffmanTree, "");		
 		
 	}
 	
-	public void map(Node n, String code) {
+	// make a map from characters to their binary strings
+	public void buildCode(Node n, String code) {
 		if (n.isLeaf()) {
 			mapping.put(n.letter, code);
 		} else {
-			map(n.left, code + "0");
-			map(n.right, code + "1");
+			buildCode(n.left, code + "0");
+			buildCode(n.right, code + "1");
 		}
 	}
 	
@@ -134,9 +122,7 @@ public class Huffman {
 				freqMap.put(c, 1);
 			}
 		}
-		for (Character c : freqMap.keySet()) {
-			System.out.println(c + " " + freqMap.get(c));
-		}
+		
 		return freqMap;
 	}
 
