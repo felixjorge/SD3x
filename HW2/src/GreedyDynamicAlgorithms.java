@@ -32,6 +32,7 @@ public class GreedyDynamicAlgorithms {
 		System.out.println("min cost " + minPath);
 		printArray(min);
 		
+		// trace the path from the min table
 		List<Direction> list = new ArrayList<>();
 		int i = 0; int j = 0;
 		while (true) {
@@ -48,6 +49,7 @@ public class GreedyDynamicAlgorithms {
 		return list;
 	}
 	
+	// helper method - print content of array a
 	public static void printArray(int[][] a) {
 		for (int i = 0; i < a.length; i++) {
 			for (int j = 0; j < a[i].length; j++) {
@@ -57,28 +59,27 @@ public class GreedyDynamicAlgorithms {
 		}
 	}
 	
+	// returns whether grid[row][col] is valid
 	public static boolean isValidSquare(int[][] grid, int row, int col) {
-//		System.out.println("call isvalid on " + row +  " " + col);
-//		System.out.println("grid size " + grid.length + "x" + grid[0].length);
 		return row < grid.length && col < grid[0].length;
 	}
 	
-	public static int minPath(int[][] grid, int row, int col, int[][] min) {
+	public static int minPath(int[][] grid, int row, int col, int[][] memo) {
 		System.out.println("\tcall minPath on " + row + " " + col);
 		if (!isValidSquare(grid, row, col)) { // invalid square
 			return Integer.MAX_VALUE;
 		}
 		
 		if (row == grid.length - 1 && col == grid[0].length - 1) { // at bottom right
-			min[row][col] = grid[row][col];
+			memo[row][col] = grid[row][col];
 			return grid[row][col];
 		} 
 		
-		if (min[row][col] == 0) {
-			min[row][col] = grid[row][col] + Math.min(minPath(grid, row, col+1, min), minPath(grid, row+1, col, min));
+		if (memo[row][col] == 0) { // if not yet in memo 
+			memo[row][col] = grid[row][col] + Math.min(minPath(grid, row, col+1, memo), minPath(grid, row+1, col, memo));
 		}
 		
-		return min[row][col];		
+		return memo[row][col];		
 	}
 	
 	/**
