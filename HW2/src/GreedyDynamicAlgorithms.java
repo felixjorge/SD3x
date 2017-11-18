@@ -13,8 +13,53 @@ public class GreedyDynamicAlgorithms {
 	 * @return
 	 */
 	public static int optimalIntervals(ArrayList<Interval> red, ArrayList<Interval> blue) {
-		//TODO
-		return -1;
+		Interval.sortByStartTime(blue);
+		Interval.sortByFinishTime(red);
+		
+		int i = 0; int j = 0;
+		Interval[] marked = new Interval[blue.size()];
+		while (i < blue.size() && j < red.size()) {
+//			System.out.println("i = " + i + " j = " + j);
+			if (isIntersected(red.get(j), blue.get(i))) {
+//				System.out.println("add to marked[" + i + "] "  + red.get(j));
+				if (marked[i] == null) {
+					marked[i] = red.get(j);
+					
+				} else { // already marked
+					if (i+1 < blue.size() && isIntersected(red.get(j), blue.get(i+1))) {
+						marked[i] = red.get(j);
+						marked[++i] = red.get(j++);
+					}
+					
+				}
+				j++;
+			} else {
+				i++;
+			}
+			
+		}
+		
+//		for (Interval itv : marked) {
+//			System.out.println(itv);
+//		}
+		
+		ArrayList<Interval> already = new ArrayList<>();
+		for (i = 0; i < marked.length; i++) {
+			if (marked[i] == null) return -1;
+			if (!already.contains(marked[i])) {
+				already.add(marked[i]);
+			}
+		}
+		return already.size();
+	}
+	
+	// returns if 2 intervals red and blue are intersected
+	public static boolean isIntersected(Interval red, Interval blue) {
+		if (red.start < blue.start) {
+			return red.finish >= blue.start;
+		} else {
+			return red.start <= blue.finish;
+		}
 	}
 	
 	/**
@@ -128,6 +173,10 @@ public class GreedyDynamicAlgorithms {
 					return i1.finish - i2.finish;
 				}
 			});
+		}
+		
+		public String toString() {
+			return "(" + start + "-" + finish + ")";
 		}
 	}
 	
