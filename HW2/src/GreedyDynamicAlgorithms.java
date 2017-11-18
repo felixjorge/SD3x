@@ -16,41 +16,57 @@ public class GreedyDynamicAlgorithms {
 		Interval.sortByStartTime(blue);
 		Interval.sortByFinishTime(red);
 		
+		System.out.println(red.size() + " " + blue.size());
+        System.out.println("red:");
+        printIntervals(red);
+        System.out.println("blue:");
+        printIntervals(blue);
+
 		int i = 0; int j = 0;
-		Interval[] marked = new Interval[blue.size()];
+		int count = 0;
+		// for blue[i], find the last j red[j] that overlaps
+		// remove all blue[i] that red[j] overlaps
 		while (i < blue.size() && j < red.size()) {
-//			System.out.println("i = " + i + " j = " + j);
-			if (isIntersected(red.get(j), blue.get(i))) {
-//				System.out.println("add to marked[" + i + "] "  + red.get(j));
-				if (marked[i] == null) {
-					marked[i] = red.get(j);
-					
-				} else { // already marked
-					if (i+1 < blue.size() && isIntersected(red.get(j), blue.get(i+1))) {
-						marked[i] = red.get(j);
-						marked[++i] = red.get(j++);
-					}
-					
-				}
+//			System.out.println("i = " + i + " j =  " + j);
+			if (!isIntersected(red.get(j), blue.get(i))) {
 				j++;
-			} else {
-				i++;
+				continue;
+			}
+//			int k = i;
+			while (j < red.size() && isIntersected(red.get(j), blue.get(i))) {
+				j++;
+//				if (j == red.size()) { // already last red
+//					if (i < blue.size())
+//					return count+1;
+//				}
 			}
 			
-		}
-		
-//		for (Interval itv : marked) {
-//			System.out.println(itv);
-//		}
-		
-		ArrayList<Interval> already = new ArrayList<>();
-		for (i = 0; i < marked.length; i++) {
-			if (marked[i] == null) return -1;
-			if (!already.contains(marked[i])) {
-				already.add(marked[i]);
+			// j-1 is the last on that intersects
+//			System.out.println(red.get(j-1));
+//			i++; // to the next i
+			count++;
+			while (isIntersected(red.get(j-1), blue.get(i))) { // remove all intersected blue[i] 
+//				System.out.println(isIntersected(red.get(j-1), blue.get(i)));
+				System.out.println(red.get(j-1) + " intersects " + blue.get(i));
+				i++;
+				if (i == blue.size()) { // already last blue
+					return count;
+				}
 			}
+			if (j < red.size())
+				System.out.println(red.get(j) + " vs " + blue.get(i));
+//			j++; // to the next red
+//			i++; // to the next blue
 		}
-		return already.size();
+		System.out.println(i < blue.size());
+		if (i < blue.size()) return -1;
+		return count;
+	}
+	
+	public static void printIntervals(ArrayList<Interval> intervals) {
+		for (Interval i : intervals) {
+			System.out.println(i);
+		}
 	}
 	
 	// returns if 2 intervals red and blue are intersected
