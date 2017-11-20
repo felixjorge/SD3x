@@ -14,52 +14,36 @@ public class GreedyDynamicAlgorithms {
 	 */
 	public static int optimalIntervals(ArrayList<Interval> red, ArrayList<Interval> blue) {
 		Interval.sortByStartTime(blue);
-		Interval.sortByFinishTime(red);
-		
-		System.out.println(red.size() + " " + blue.size());
-        System.out.println("red:");
-        printIntervals(red);
-        System.out.println("blue:");
-        printIntervals(blue);
+		Interval.sortByFinishTime(red);		
 
 		int i = 0; int j = 0;
 		int count = 0;
-		// for blue[i], find the last j red[j] that overlaps
-		// remove all blue[i] that red[j] overlaps
+				
 		while (i < blue.size() && j < red.size()) {
-//			System.out.println("i = " + i + " j =  " + j);
 			if (!isIntersected(red.get(j), blue.get(i))) {
 				j++;
 				continue;
 			}
-//			int k = i;
+			// now blue[i] and red[j] are intersected
+			
+			// for the next blue[i], find the last j so that red[j] overlaps with blue[i]
 			while (j < red.size() && isIntersected(red.get(j), blue.get(i))) {
 				j++;
-//				if (j == red.size()) { // already last red
-//					if (i < blue.size())
-//					return count+1;
-//				}
 			}
 			
 			// j-1 is the last on that intersects
-//			System.out.println(red.get(j-1));
-//			i++; // to the next i
 			count++;
-			while (isIntersected(red.get(j-1), blue.get(i))) { // remove all intersected blue[i] 
-//				System.out.println(isIntersected(red.get(j-1), blue.get(i)));
-				System.out.println(red.get(j-1) + " intersects " + blue.get(i));
+			// remove all the blue[i] that red[j-1] overlaps
+			while (isIntersected(red.get(j-1), blue.get(i))) { 
+//				System.out.println(red.get(j-1) + " intersects " + blue.get(i));
 				i++;
-				if (i == blue.size()) { // already last blue
+				if (i == blue.size()) { // already past the last blue
 					return count;
 				}
 			}
-			if (j < red.size())
-				System.out.println(red.get(j) + " vs " + blue.get(i));
-//			j++; // to the next red
-//			i++; // to the next blue
 		}
-		System.out.println(i < blue.size());
-		if (i < blue.size()) return -1;
+		
+		if (i < blue.size()) return -1; // happen when a blue interval has not been intersected yet
 		return count;
 	}
 	
