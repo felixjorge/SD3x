@@ -16,4 +16,14 @@
 	* Greedy Algorithms
 	* Huffman Coding
 	* [Homework 2:](https://courses.edx.org/courses/course-v1:PennX+SD3x+2T2017/courseware/73f4123ea88d4bb0bd0da0ba08560131/187753ec461d405d8e7a7566a0225e8e/?activate_block_id=block-v1%3APennX%2BSD3x%2B2T2017%2Btype%40sequential%2Bblock%40187753ec461d405d8e7a7566a0225e8e) Write programs for several greedy and dynamic programming algorithms.
+* Week 3 - Graph Algorithms - Traversals and Spanning Trees
+	* Graphs and Trees: Basic Definitions and Facts
+	* Depth-First Search
+	* Strongly-Connected Components
+	* Biconnected Components
+	* Breadth-First Search
+	* Minimum Spanning Trees
+	* Kruskal's Algorithm
+	* Prim's Algorithm
+	* [Homework 3:](https://courses.edx.org/courses/course-v1:PennX+SD3x+2T2017/courseware/89d6f8ab48d8480c9f37f3f8f6514a45/9d4c8282b02c40a28683afaea576d60c/?activate_block_id=block-v1%3APennX%2BSD3x%2B2T2017%2Btype%40sequential%2Bblock%409d4c8282b02c40a28683afaea576d60c) Applications of graph traversals
      
