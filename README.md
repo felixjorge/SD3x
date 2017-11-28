@@ -25,5 +25,5 @@
 	* Minimum Spanning Trees
 	* Kruskal's Algorithm
 	* Prim's Algorithm
-	* [Homework 3:](https://courses.edx.org/courses/course-v1:PennX+SD3x+2T2017/courseware/89d6f8ab48d8480c9f37f3f8f6514a45/9d4c8282b02c40a28683afaea576d60c/?activate_block_id=block-v1%3APennX%2BSD3x%2B2T2017%2Btype%40sequential%2Bblock%409d4c8282b02c40a28683afaea576d60c) Applications of graph traversals
+	* [Homework 3:](https://courses.edx.org/courses/course-v1:PennX+SD3x+2T2017/courseware/89d6f8ab48d8480c9f37f3f8f6514a45/9d4c8282b02c40a28683afaea576d60c/?activate_block_id=block-v1%3APennX%2BSD3x%2B2T2017%2Btype%40sequential%2Bblock%409d4c8282b02c40a28683afaea576d60c) Applications of graph traversals - implement a maze solver & find the number of distinct shortest paths.
      
