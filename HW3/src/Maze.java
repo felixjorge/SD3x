@@ -42,7 +42,30 @@ public class Maze {
 		//TODO
 		//determine how to represent the graph and create it
 		//initialize startVertex and endVertex
-		g = null;
+		g = new Graph(n * n);
+		for (int row = 0; row < n; row++) {
+			for (int col = 0; col < n; col++) {
+				if (grid[row][col] != 0) {
+					int v = row*n + col;
+					if (isWithinGrid(row-1, col, n) && grid[row-1][col] != 0) { 
+						g.addEdge(v, (row-1)*n + col);
+					}
+					if (isWithinGrid(row+1, col, n) && grid[row+1][col] != 0) {
+						g.addEdge(v, (row+1)*n + col);
+					}
+					if (isWithinGrid(row, col-1, n) && grid[row][col-1] != 0) {
+						g.addEdge(v, row*n + col - 1);
+					}
+					if (isWithinGrid(row, col+1, n) && grid[row][col+1] != 0) {
+						g.addEdge(v, row*n + col + 1);
+					}
+				}
+			}
+		}
+	}
+	
+	public boolean isWithinGrid(int row, int col, int n) {
+		return !(row < 0 || col < 0 || row >= n || col >= n);
 	}
 	
 	/**

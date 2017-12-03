@@ -30,8 +30,20 @@ public class Graph {
 	 * add an edge between vertices v and w
 	 */
 	public void addEdge(int v, int w) {
-		adj[v].add(w); //add w to v's adjacency list
-		adj[w].add(v);
+		if (!adj[v].contains(w)) {
+			adj[v].add(w); //add w to v's adjacency list
+			adj[w].add(v);
+		}		
+	}
+	
+	public void printGraph() {
+		for (int i = 0; i < n; i++) {
+			System.out.print(i + ": ");
+			for (Integer j : adj[i]) {
+				System.out.print(j + ", ");
+			}
+			System.out.println();
+		}
 	}
 	
 	/**
